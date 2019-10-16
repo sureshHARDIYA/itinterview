@@ -3,9 +3,7 @@ import React from 'react';
 import './App.css';
 import { quiz } from './data/chapter1';
 import Quiz from 'react-quiz-component/lib/Quiz';
-import { Card, Icon, Avatar } from 'antd';
-const { Meta } = Card;
-
+import { Card } from 'antd';
 
 function App() {
   return (
