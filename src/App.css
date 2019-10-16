@@ -20,3 +20,44 @@
 .App-link {
   color: #09d3ac;
 }
+
+.trigger {
+  font-size: 18px;
+  line-height: 64px;
+  padding: 0 24px;
+  cursor: pointer;
+  transition: color 0.3s;
+}
+
+.trigger:hover {
+  color: #1890ff;
+}
+
+.logo {
+    height: 31px;
+    margin: 16px;
+    color: white;
+    font-family: monospace;
+    padding: 6px;
+    font-size: x-large;
+}
+
+.ant-layout-sider-children a {
+  color: white;
+}
+
+.heart {
+  color: red;
+}
+
+.ant-layout-content {
+  min-height: calc(100vh - 11.2rem) !important;
+}
+
+.ant-layout-sider-collapsed .logo {
+  transition: width 2s;
+  width: 60px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
