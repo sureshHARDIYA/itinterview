@@ -5,7 +5,7 @@ import { quiz } from '../../data/chapter1';
 
 const Home = () => {
   return (<div>
-    <Quiz quiz={quiz} showInstantFeedback={true}/>
+    <Quiz quiz={quiz} showInstantFeedback={true} shuffle={true} />
     </div>
   );
 }

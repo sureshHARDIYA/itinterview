@@ -4,7 +4,6 @@ export const quiz =  {
   "questions": [
     {
       "question": "Which task is not _performed_ in data cleaning stage?",
-      "questionDescription": "<pre>import numpy as np <br/>np.array(['1', '2', '3'])</pre>",
       "questionType": "text",
       "answerSelectionType": "single",
       "answers": [
@@ -16,8 +15,8 @@ export const quiz =  {
       "correctAnswer": "3",
       "messageForCorrectAnswer": "Correct answer. Good job.",
       "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "point": "20"
+      "explanation": "During data cleaning stage we check for duplicates, missing values and error check. During transformation stage, we transform the data.",
+      "point": "10"
     },
     {
       "question": "Which of the following is true?",
@@ -33,69 +32,110 @@ export const quiz =  {
       "correctAnswer": "1",
       "messageForCorrectAnswer": "Correct answer. Good job.",
       "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "point": "20"
-    },
-    {
-      "question": "ReactJS is an MVC based framework?",
-      "questionType": "text",
-      "answerSelectionType": "single",
-      "answers": [
-        "True",
-        "False"
-      ],
-      "correctAnswer": "2",
-      "messageForCorrectAnswer": "Correct answer. Good job.",
-      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+      "explanation": "`Data = Model + Error` is the correct answer.",
       "point": "10"
     },
     {
-      "question": "Which of the following concepts is/are key to ReactJS?",
+      "question": "In the equation below, which statement is true?",
+      "questionDescription": "<pre>price of pens(Total) = price for one pen(UnitPrice) * the number of pens bought (Quantity).</pre>",
       "questionType": "text",
       "answerSelectionType": "single",
       "answers": [
-        "Component-oriented design",
-        "Event delegation model",
-        "Both of the above",
+        "Total prices is dependent variable.",
+        "Unit price is independent variable.",
+        "In general, a model like above always represents the relationship between dependent and independent variable",
+        "All of the above."
       ],
-      "correctAnswer": "3",
+      "correctAnswer": "4",
       "messageForCorrectAnswer": "Correct answer. Good job.",
       "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "point": "30"
+      "explanation": "All of the above statements are True. If you are confused refer to the first chapter in the book.",
+      "point": "10"
     },
     {
-      "question": "Lorem ipsum dolor sit amet, consectetur adipiscing elit,",
-      "questionType": "photo",
-      "answerSelectionType": "single",
-      "answers": [
-        "https://dummyimage.com/600x400/000/fff&text=A",
-        "https://dummyimage.com/600x400/000/fff&text=B",
-        "https://dummyimage.com/600x400/000/fff&text=C",
-        "https://dummyimage.com/600x400/000/fff&text=D"
-      ],
-      "correctAnswer": "1",
-      "messageForCorrectAnswer": "Correct answer. Good job.",
-      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "point": "20"
-    },
-    {
-      "question": "What are the advantages of React JS?",
+      "question": "Which of the following data is numerical types?",
       "questionType": "text",
       "answerSelectionType": "multiple",
       "answers": [
-        "React can be used on client and as well as server side too",
-        "Using React increases readability and makes maintainability easier. Component, Data patterns improves readability and thus makes it easier for manitaining larger apps",
-        "React components have lifecycle events that fall into State/Property Updates",
-        "React can be used with any other framework (Backbone.js, Angular.js) as it is only a view layer"
+        "A person's age",
+        "Height of a person",
+        "Gender",
+        "Heart rate",
+        "Country names."
       ],
       "correctAnswer": [1, 2, 4],
       "messageForCorrectAnswer": "Correct answer. Good job.",
       "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-      "point": "20"
+      "explanation": "For example, a person's age, height, weight, blood pressure, heart rate, temperature, number of teeth, number of bones, number of family members, etc. These data often referred to as quantitative data in statistics.",
+      "point": "10"
+    },
+    {
+      "question": "Which of the following statements are *FALSE* about categorical dataset?",
+      "questionType": "text",
+      "answerSelectionType": "single",
+      "answers": [
+        "Gender is a categorical data.",
+        "Blood type (A, B, AB, O) is a categorical data.",
+        "The binary categorical variable can take exactly two values and are also referred to as a dichotomous variable.",
+        "Most of the categorical dataset follows either nominal or ordinal measurement scales.",
+        "None of the above"
+      ],
+      "correctAnswer": "5",
+      "messageForCorrectAnswer": "Correct answer. Good job.",
+      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+      "explanation": "All of the above statements are correct. Check categorical data section in the book.",
+      "point": "10"
+    },
+    {
+      "question": "What are different types of the measurement scales?",
+      "questionType": "text",
+      "answerSelectionType": "multiple",
+      "answers": [
+        "Nominal",
+        "Ordinal",
+        "Interval",
+        "Ratio",
+        "Numerical"
+      ],
+      "correctAnswer": [1, 2, 3, 4],
+      "messageForCorrectAnswer": "Correct answer. Good job.",
+      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+      "explanation": "There are four different types of measurement scales described in statistics: nominal, ordinal, interval, and ratio.",
+      "point": "10"
+    },
+    {
+      "question": "Which of the following are NOT *Python* libraries used in data science?",
+      "questionType": "text",
+      "answerSelectionType": "single",
+      "answers": [
+        "Pandas",
+        "SciPy",
+        "Sckit-Learn",
+        "Matplotlib",
+        "React JS"
+      ],
+      "correctAnswer": "5",
+      "messageForCorrectAnswer": "Correct answer. Good job.",
+      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+      "explanation": "React JS is a JavaScript Framework.",
+      "point": "10"
+    },
+    {
+      "question": "What is the output of the following code?",
+      "questionType": "text",
+      "answerSelectionType": "single",
+      "answers": [
+        "Pandas",
+        "SciPy",
+        "Sckit-Learn",
+        "Matplotlib",
+        "React JS"
+      ],
+      "correctAnswer": "5",
+      "messageForCorrectAnswer": "Correct answer. Good job.",
+      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+      "explanation": "React JS is a JavaScript Framework.",
+      "point": "10"
     },
   ]
 }

@@ -17,7 +17,7 @@ const Home = () => {
         }
         >
         <Meta
-        title="Exploratory Data Analysis"
+        title="Chapter 1: Exploratory Data Analysis"
         description="'The main objective of this chapter is to revise the fundamentals of EDA, what it is, key concepts of profiling and quality assessment main dimensions of EDA, main challenges and opportunities in EDA.'"
         />
         <p />
