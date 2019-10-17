@@ -122,6 +122,39 @@ export const quiz =  {
     },
     {
       "question": "What is the output of the following code?",
+      "questionDescription": "<pre>my1DArray = np.array([1, 8, 27, 64]) \n print(my2DArray.shape)</pre>",
+      "questionType": "text",
+      "answerSelectionType": "single",
+      "answers": [
+        "4",
+        "(4,)",
+        "4,",
+        "(4,1)"
+      ],
+      "correctAnswer": "2",
+      "messageForCorrectAnswer": "Correct answer. Good job.",
+      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+      "explanation": "Checkout the basics of Numpy. The shape is always returned as tuple even though it is single dimension.",
+      "point": "10"
+    },
+    {
+      "question": "What are the two types of data structures explained in the book?",
+      "questionType": "text",
+      "answerSelectionType": "multiple",
+      "answers": [
+        "Series",
+        "DataFrame",
+        "LinkedList",
+        "Set"
+      ],
+      "correctAnswer": [1,2],
+      "messageForCorrectAnswer": "Correct answer. Good job.",
+      "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
+      "explanation": "In Pandas, we can create data structures using two ways: Series and DataFrame. Check the snippet below in order to understand how we can create both Series and dataframe.",
+      "point": "10"
+    },
+    {
+      "question": "Which libraries is the most commonly used for graphical representations?",
       "questionType": "text",
       "answerSelectionType": "single",
       "answers": [
@@ -131,10 +164,10 @@ export const quiz =  {
         "Matplotlib",
         "React JS"
       ],
-      "correctAnswer": "5",
+      "correctAnswer": "4",
       "messageForCorrectAnswer": "Correct answer. Good job.",
       "messageForIncorrectAnswer": "Incorrect answer. Please try again.",
-      "explanation": "React JS is a JavaScript Framework.",
+      "explanation": "In Pandas, we can create data structures using two ways: Series and DataFrame. Check the snippet below in order to understand how we can create both Series and dataframe.",
       "point": "10"
     },
   ]
