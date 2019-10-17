@@ -61,3 +61,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+.ant-card-cover img {
+  max-height: 180.84px;
+}

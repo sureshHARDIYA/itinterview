@@ -25,5 +25,5 @@ export const Routes = () =>
 </Switch>
 
 function About() {
-  return <h2>About</h2>;
+  return <h2>About Exploratory Data Analysis</h2>;
 }
