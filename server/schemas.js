@@ -1,7 +1,7 @@
 import {
   typeDef as Question,
   typeQuery as QuestionQuery,
-  typeMutation as QuestionMutation,
+  typeMutation as QuestionMutation
 } from "./v1/Question/types";
 
 const Schema = `

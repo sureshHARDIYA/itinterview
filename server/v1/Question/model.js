@@ -2,6 +2,24 @@ import mongoose, { Schema } from "mongoose";
 
 export const QuestionSchema = new Schema({
   title: { type: String, required: true, unique: true },
+  description: { type: String },
+  type: { type: String, enum: ["TEXT", "PICTURE"], default: "TEXT" },
+  selectionType: {
+    type: String,
+    enum: ["SINGLE", "MULTIPLE"],
+    default: "SINGLE"
+  },
+  answers: [{ type: String }],
+  correctAnswer: [{ type: String }],
+  correctResponse: { type: String },
+  incorrectResponse: { type: String },
+  explanation: { type: String },
+  points: {
+    type: Number,
+    default: 10,
+    min: [0, "Score must be greater than 0"],
+    required: [true, "Score is required"]
+  }
 });
 
 QuestionSchema.statics.getAll = async function(args) {
@@ -14,8 +32,8 @@ QuestionSchema.statics.getBy = async function(where) {
 };
 
 QuestionSchema.statics.createData = async function(input) {
-  return await this.create(input);;
-}
+  return await this.create(input);
+};
 
 QuestionSchema.statics.updateData = async function(id, input) {
   try {
@@ -30,7 +48,7 @@ QuestionSchema.statics.updateData = async function(id, input) {
   } catch (e) {
     return e;
   }
-}
+};
 
 QuestionSchema.statics.deleteData = async function(id) {
   try {
@@ -45,7 +63,6 @@ QuestionSchema.statics.deleteData = async function(id) {
   } catch (e) {
     return e;
   }
-}
-
+};
 
 export default mongoose.model("Question", QuestionSchema);
