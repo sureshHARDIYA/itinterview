@@ -3,6 +3,7 @@ export const typeDef = `
     id: String!
     title: String!
     description: String
+    question: [Question]
   }
 
   input QuizQuery {
@@ -22,8 +23,8 @@ export const typeDef = `
 `;
 
 export const typeQuery = `
-  findBy(where: QuizCondition): Quiz
-  find(where: QuizCondition, limit: Int = 10, page: Int = 0): [Quiz]
+  findQuizBy(where: QuizCondition): Quiz
+  findQuiz(where: QuizCondition, limit: Int = 10, page: Int = 0): [Quiz]
 `;
 
 export const typeMutation = `

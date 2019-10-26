@@ -11,6 +11,7 @@ export const typeDef = `
     incorrectResponse: String
     explanation: String
     points:  String
+    Quiz: String
   }
 
   enum questionType {
@@ -38,6 +39,7 @@ export const typeDef = `
 
   input QuestionInput {
     title: String!
+    Quiz: String!
     description: String
     type: questionType
     selectionType: String
@@ -60,6 +62,7 @@ export const typeDef = `
     incorrectResponse: String
     explanation: String
     points:  String
+    Quiz: String
   }
 `;
 

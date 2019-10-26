@@ -1,6 +1,11 @@
 import mongoose, { Schema } from "mongoose";
 
 export const QuestionSchema = new Schema({
+  Quiz: {
+    ref: 'Quiz',
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, 'Question must be associated with some Quiz'],
+  },
   title: { type: String, required: true, unique: true },
   description: { type: String },
   type: { type: String, enum: ["TEXT", "PICTURE"], default: "TEXT" },
