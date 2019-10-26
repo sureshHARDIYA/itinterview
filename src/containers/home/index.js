@@ -1,11 +1,30 @@
 import React from 'react';
+import { gql } from 'apollo-boost';
 import { Card, Col, Row, Button } from 'antd';
+import { useQuery } from '@apollo/react-hooks';
 
 import chapter2 from './chapter2.png';
 const { Meta } = Card;
 
+const EXCHANGE_RATES = gql`
+{
+  find {
+    id
+    title
+    points
+  }
+}
+`;
+
 const Home = () => {
-  return (<div>
+  const { loading, error, data } = useQuery(EXCHANGE_RATES);
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Error :(</p>;
+
+  return (
+    <div>
+    {console.log(data)}
     <Row>
       <Col span={8}>
         <Card
@@ -42,7 +61,7 @@ const Home = () => {
         description="'The main objective of this chapter is to revise the fundamentals of EDA, what it is, key concepts of profiling and quality assessment main dimensions of EDA, main challenges and opportunities in EDA.'"
         />
         <p />
-        <Button href="#" type="primary" icon="caret-right" size="large">Coming soon ...</Button>
+          <Button href="#" type="primary" icon="caret-right" size="large">Coming soon ...</Button>
         </Card>
       </Col>
     </Row>
