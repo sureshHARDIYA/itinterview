@@ -17,6 +17,7 @@ export const typeDef = `
   }
 
   input QuizCondition {
+    id: String
     title: String
     description: String
   }

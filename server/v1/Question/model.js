@@ -1,7 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
 export const QuestionSchema = new Schema({
-  Quiz: {
+  quiz: {
     ref: 'Quiz',
     type: mongoose.Schema.Types.ObjectId,
     required: [true, 'Question must be associated with some Quiz'],

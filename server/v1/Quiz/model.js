@@ -3,12 +3,13 @@ import mongoose, { Schema } from "mongoose";
 export const QuizSchema = new Schema({
   title: { type: String, required: true, unique: true },
   description: { type: String },
+  question: [{ type: Schema.Types.ObjectId, ref: 'Question' }]
 });
 
 QuizSchema.statics.getAll = async function(args) {
   const { where, limit = 10, page = 0 } = args || {};
 
-  return await this.find(where || {}, null, { limit, skip: limit * page }).populate('questions');
+  return  await this.find(where || {}, null, { limit, skip: limit * page }).populate('question').exec();
 };
 
 QuizSchema.statics.getBy = async function(where) {
