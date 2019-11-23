@@ -1,5 +1,7 @@
 import mongoose, { Schema } from "mongoose";
 
+import Quiz from "../Quiz/model";
+
 export const QuestionSchema = new Schema({
   quiz: {
     ref: 'Quiz',
@@ -29,7 +31,7 @@ export const QuestionSchema = new Schema({
 
 QuestionSchema.statics.getAll = async function(args) {
   const { where, limit = 10, page = 0 } = args || {};
-  return await this.find(where || {}, null, { limit, skip: limit * page });
+  return await this.find(where || {}, null, { limit, skip: limit * page }).populate('quiz');
 };
 
 QuestionSchema.statics.getBy = async function(where) {
@@ -69,5 +71,9 @@ QuestionSchema.statics.deleteData = async function(id) {
     return e;
   }
 };
+
+QuestionSchema.post('save', (doc) => {
+  Quiz.updateData(doc.quiz, { $push: { question: doc._id } });
+});
 
 export default mongoose.model("Question", QuestionSchema);

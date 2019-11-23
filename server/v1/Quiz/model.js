@@ -8,8 +8,7 @@ export const QuizSchema = new Schema({
 
 QuizSchema.statics.getAll = async function(args) {
   const { where, limit = 10, page = 0 } = args || {};
-
-  return  await this.find(where || {}, null, { limit, skip: limit * page }).populate('question').exec();
+  return  await this.find(where || {}, null, { limit, skip: limit * page }).populate('question');
 };
 
 QuizSchema.statics.getBy = async function(where) {
