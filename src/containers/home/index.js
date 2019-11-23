@@ -7,11 +7,10 @@ import chapter2 from './chapter2.png';
 const { Meta } = Card;
 
 const EXCHANGE_RATES = gql`
-query {
-  findQuiz{
+query findQuiz {
+  findQuiz {
     id
     title
-    description
     question {
       id
       title
