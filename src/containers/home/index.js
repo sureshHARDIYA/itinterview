@@ -1,33 +1,12 @@
 import React from 'react';
-import { gql } from 'apollo-boost';
 import { Card, Col, Row, Button } from 'antd';
-import { useQuery } from '@apollo/react-hooks';
 
 import chapter2 from './chapter2.png';
 const { Meta } = Card;
 
-const EXCHANGE_RATES = gql`
-query findQuiz {
-  findQuiz {
-    id
-    title
-    question {
-      id
-      title
-    }
-  }
-}
-`;
-
 const Home = () => {
-  const { loading, error, data } = useQuery(EXCHANGE_RATES);
-
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
-
   return (
     <div>
-    {console.log(data)}
     <Row>
       <Col span={8}>
         <Card
