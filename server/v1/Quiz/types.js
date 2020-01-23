@@ -3,28 +3,33 @@ export const typeDef = `
     id: String!
     title: String!
     description: String
+    featuredImage: String
     question: [Question]
+    category: [ID]
   }
 
   input QuizQuery {
     title: String!
     description: String
+    featuredImage: String
+    category: [ID]
   }
 
   input QuizInput {
     title: String!
+    featuredImage: String
     description: String
+    category: [ID]
   }
 
   input QuizCondition {
     id: String
     title: String
-    description: String
   }
 `;
 
 export const typeQuery = `
-  findQuizBy(where: QuizCondition): Quiz
+  findQuizById(id: ID!): Quiz
   findQuiz(where: QuizCondition, limit: Int = 10, page: Int = 0): [Quiz]
 `;
 

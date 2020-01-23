@@ -3,7 +3,13 @@ import mongoose, { Schema } from "mongoose";
 export const QuizSchema = new Schema({
   title: { type: String, required: true, unique: true },
   description: { type: String },
-  question: [{ type: Schema.Types.ObjectId, ref: 'Question' }]
+  question: [{ type: Schema.Types.ObjectId, ref: 'Question' }],
+  featuredImage: {type: String},
+  category: [{
+    ref: 'Category',
+    type: mongoose.Schema.Types.ObjectId,
+    required: [true, 'Quiz must be associated with at least one category'],
+  }],
 });
 
 QuizSchema.statics.getAll = async function(args) {
@@ -12,7 +18,7 @@ QuizSchema.statics.getAll = async function(args) {
 };
 
 QuizSchema.statics.getBy = async function(where) {
-  return await this.findOne(where || {});
+  return await this.findById(where.id || {});
 };
 
 QuizSchema.statics.createData = async function(input) {
@@ -48,5 +54,6 @@ QuizSchema.statics.deleteData = async function(id) {
     return e;
   }
 };
+
 
 export default mongoose.model("Quiz", QuizSchema);
