@@ -1,80 +1,101 @@
-import React from 'react';
+import React, { Component } from "react";
+import { Layout, Menu, Breadcrumb } from "antd";
 import {
-  BrowserRouter as Router,
-  Switch,
-  Link
-} from "react-router-dom";
-import ApolloClient from 'apollo-boost';
-import { Layout, Menu, Icon } from 'antd';
-import { ApolloProvider } from '@apollo/react-hooks';
+  DesktopOutlined,
+  PieChartOutlined,
+  FileOutlined,
+  TeamOutlined,
+  UserOutlined,
+  MenuUnfoldOutlined,
+  MenuFoldOutlined
+} from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { Switch, Route } from "react-router-dom";
 
-import './App.css';
-import { Routes } from './routes';
+import Categories from "./pages/categories/index";
+import CategoriesDetail from "./pages/categories/detail";
 
-const { Header, Sider, Content, Footer } = Layout;
-const client = new ApolloClient({
-  uri: 'http://localhost:4000/',
-});
+const { SubMenu } = Menu;
+const { Header, Content, Footer, Sider } = Layout;
 
-class App extends React.Component {
+class App extends Component {
   state = {
-    collapsed: false,
+    collapsed: true
+  };
+
+  onCollapse = collapsed => {
+    this.setState({ collapsed });
   };
 
   toggle = () => {
     this.setState({
-      collapsed: !this.state.collapsed,
+      collapsed: !this.state.collapsed
     });
   };
 
   render() {
     return (
-      <ApolloProvider client={client}>
-        <Router>
-        <Layout>
-          <Sider trigger={null} collapsible collapsed={this.state.collapsed}>
-            <div className="logo">IT Interview</div>
-            <Switch>
-            <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-              <Menu.Item key="1">
-                <Icon type="user" />
-                <span><Link to="/">Home</Link></span>
-              </Menu.Item>
-              <Menu.Item key="2">
-                <Icon type="video-camera" />
-                <span><Link to="/about-us">About us</Link></span>
-              </Menu.Item>
-              <Menu.Item key="3">
-                <Icon type="upload" />
-                <span><Link to="/contact">Contact</Link></span>
-              </Menu.Item>
-            </Menu>
-            </Switch>
-          </Sider>
-          <Layout>
-            <Header style={{ background: '#fff', padding: 0 }}>
-              <Icon
-                className="trigger"
-                type={this.state.collapsed ? 'menu-unfold' : 'menu-fold'}
-                onClick={this.toggle}
-              />
-            </Header>
-            <Content
-              style={{
-                margin: '24px 16px',
-                padding: 24,
-                background: '#fff',
-                minHeight: 280,
-              }}
+      <Layout style={{ minHeight: "100vh" }}>
+        <Sider
+          collapsible
+          trigger={null}
+          collapsed={this.state.collapsed}
+          onCollapse={this.onCollapse}
+        >
+          <div className="logo" />
+          <Menu theme="dark" defaultSelectedKeys={["1"]} mode="inline">
+            <Menu.Item key="1" icon={<PieChartOutlined />}>
+              <Link to="/">Categories</Link>
+            </Menu.Item>
+            <Menu.Item key="2" icon={<DesktopOutlined />}>
+              <Link to="/contact">Contact</Link>
+            </Menu.Item>
+            <SubMenu key="sub1" icon={<UserOutlined />} title="User">
+              <Menu.Item key="3">Tom</Menu.Item>
+              <Menu.Item key="4">Bill</Menu.Item>
+              <Menu.Item key="5">Alex</Menu.Item>
+            </SubMenu>
+            <SubMenu key="sub2" icon={<TeamOutlined />} title="Team">
+              <Menu.Item key="6">Team 1</Menu.Item>
+              <Menu.Item key="8">Team 2</Menu.Item>
+            </SubMenu>
+            <Menu.Item key="9" icon={<FileOutlined />} />
+          </Menu>
+        </Sider>
+        <Layout className="site-layout">
+          <Header className="site-layout-background" style={{ padding: 0 }}>
+            {React.createElement(
+              this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
+              {
+                className: "trigger",
+                onClick: this.toggle
+              }
+            )}
+          </Header>
+          <Content style={{ margin: "0 16px" }}>
+            <Breadcrumb style={{ margin: "16px 0" }}>
+              <Breadcrumb.Item>User</Breadcrumb.Item>
+              <Breadcrumb.Item>Bill</Breadcrumb.Item>
+            </Breadcrumb>
+            <div
+              className="site-layout-background"
+              style={{ padding: 24, minHeight: 360 }}
             >
-
-              <Routes />
-            </Content>
-            <Footer style={{ textAlign: 'center' }}>IT interviews ©2019 Created by <a href="https://github.com/sureshHARDIYA">sureshHARDIYA</a> with <span className="heart"><Icon type="heart" theme="filled"/></span></Footer>
-          </Layout>
+              <Switch>
+                <Route exact path="/" component={Categories} />
+                <Route
+                  exact
+                  path="/categories/:id"
+                  component={CategoriesDetail}
+                />
+              </Switch>
+            </div>
+          </Content>
+          <Footer style={{ textAlign: "center" }}>
+            Ant Design ©2018 Created by Ant UED
+          </Footer>
         </Layout>
-        </Router>
-      </ApolloProvider>
+      </Layout>
     );
   }
 }
