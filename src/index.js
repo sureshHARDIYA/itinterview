@@ -12,6 +12,7 @@ import App from "./app";
 import ScrollToTop from "./components/ScrollToTop";
 
 import "./app.css";
+
 const BASEURL = "https://techquiz-production.herokuapp.com/api";
 
 const httpLink = createHttpLink({

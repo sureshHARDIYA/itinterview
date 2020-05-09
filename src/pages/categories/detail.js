@@ -1,11 +1,8 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { render } from "react-dom";
-import { useQuery } from "@apollo/react-hooks";
-import { List, Avatar, Space } from "antd";
-import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 import { graphql } from "react-apollo";
 import _map from "lodash/map";
+import { List, Avatar } from "antd";
 
 const POST_QUERY = gql`
   query CATEGORY_FIND($id: String!) {
@@ -23,13 +20,6 @@ const POST_QUERY = gql`
     }
   }
 `;
-
-const IconText = ({ icon, text }) => (
-  <Space>
-    {React.createElement(icon)}
-    {text}
-  </Space>
-);
 
 class Categories extends Component {
   getListedData = data => {
