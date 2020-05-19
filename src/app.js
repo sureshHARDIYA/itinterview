@@ -48,8 +48,12 @@ class App extends Component {
           </Header>
           <Content style={{ margin: "0 16px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
-              <Breadcrumb.Item>Home</Breadcrumb.Item>
-              <Breadcrumb.Item>Category</Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/">Home</Link>
+              </Breadcrumb.Item>
+              <Breadcrumb.Item>
+                <Link to="/categories">Category</Link>
+              </Breadcrumb.Item>
             </Breadcrumb>
             <div
               className="site-layout-background"
