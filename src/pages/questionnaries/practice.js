@@ -1,6 +1,5 @@
 import React from 'react';  
-import './popup.css';
-import { Button } from "antd";
+import './practice.css';
 import Questionnaries from '../questionnaries/questionnaries';
 
 class Pracpopup extends React.Component {    

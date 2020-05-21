@@ -215,8 +215,7 @@ class Quizinator extends Component {
         });     
     }
 
-    onNextHandle = (event) => {
-        console.log('checkedState = ', this.state.qsChecked);
+    onNextHandle = (event) => {        
         let isCor = true,
             scroing = this.props.quiz.questions[this.props.currentQuestionIndex].answers;
         if (!this.state.qsChecked.length) isCor = false;
@@ -237,9 +236,11 @@ class Quizinator extends Component {
             target.classList.remove('clicked', 'correct', 'incorrect');
         }, this.props.transitionDelay);
         
-        this.setState({
-            qsChecked: [],
-        });
+        setTimeout(() => {
+            this.setState({
+                qsChecked: [],
+            });
+        }, this.props.transitionDelay);
     }  
 
     render() {
@@ -248,7 +249,7 @@ class Quizinator extends Component {
             htmlQuestion = function () {
                 return { __html: question.title };
             },
-            answerDivs = <Checkbox.Group style={{ width: '100%' }} defaultValue={this.state.qsChecked} onChange={this.onCheckboxChange}>
+            answerDivs = <Checkbox.Group style={{ width: '100%' }} value={this.state.qsChecked} onChange={this.onCheckboxChange}>
                 {
                     question.answers.map((answer, i) =>
                         <div className="checkbox">
