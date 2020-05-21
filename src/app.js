@@ -14,6 +14,7 @@ import { Switch, Route } from "react-router-dom";
 
 import Categories from "./pages/categories/index";
 import CategoriesDetail from "./pages/categories/detail";
+import Practice from "./pages/questionnaries/practice";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer } = Layout;
@@ -66,11 +67,16 @@ class App extends Component {
                   path="/categories/:id"
                   component={CategoriesDetail}
                 />
+                <Route
+                  exact
+                  path="/categories/:id/practice"
+                  component={Practice}
+                />
               </Switch>
             </div>
           </Content>
           <Footer style={{ textAlign: "center" }}>
-            Ant Design ©2018 Created by Ant UED
+            Ant Design ©2020 Created by Ant UED
           </Footer>
         </Layout>
       </Layout>
