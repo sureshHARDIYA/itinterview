@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import _map from "lodash/map";
-import { List, Avatar } from "antd";
+import { List, Avatar, Button } from "antd";
+import PracPopup from '../questionnaries/practice';
 
 const POST_QUERY = gql`
   query CATEGORY_FIND($id: String!) {
@@ -22,6 +23,18 @@ const POST_QUERY = gql`
 `;
 
 class Categories extends Component {
+
+  constructor(props){
+    super(props);
+    this.state = { showPopup: false };
+  }
+
+  togglePopup() {
+    this.setState({
+      showPopup: !this.state.showPopup
+    });
+  }
+
   getListedData = data => {
     return _map(
       data.questionnaires,
@@ -38,8 +51,6 @@ class Categories extends Component {
   render() {
     const { data } = this.props;
     const getListedData = data && this.getListedData(data.categoryFind || {});
-
-    console.log(getListedData);
     return (
       <div>
         <List
@@ -60,6 +71,23 @@ class Categories extends Component {
                 description={item.description}
               />
               {item.content}
+              <div style={{ margin: "10px 0 0", textAlign: "right" }}>
+                <Button type="default" style={{ marginLeft: 8 }} onClick={this.togglePopup.bind(this)}>
+                  Practice
+                </Button>                
+                <Button type="default" style={{ marginLeft: 8 }}>
+                  Take Test
+                </Button>                
+              </div>
+              {this.state.showPopup ?  
+                <PracPopup  
+                  title={item.title + ' Practice'}
+                  content={item.content}
+                  closePopup={this.togglePopup.bind(this)}
+                  id={item.id}
+                />  
+                : null  
+              }
             </List.Item>
           )}
         />

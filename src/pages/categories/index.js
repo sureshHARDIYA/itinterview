@@ -41,6 +41,7 @@ const IconText = ({ icon, text }) => (
 
 class Categories extends Component {
   getListedData = data => {
+    console.log("data:", data);
     return _map(
       data.rows,
       item => ({
