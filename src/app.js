@@ -14,6 +14,7 @@ import { Switch, Route } from "react-router-dom";
 
 import Categories from "./pages/categories/index";
 import CategoriesDetail from "./pages/categories/detail";
+import Practice from "./pages/questionnaries/practice";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer } = Layout;
@@ -65,6 +66,11 @@ class App extends Component {
                   exact
                   path="/categories/:id"
                   component={CategoriesDetail}
+                />
+                <Route
+                  exact
+                  path="/categories/:id/practice"
+                  component={Practice}
                 />
               </Switch>
             </div>

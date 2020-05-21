@@ -3,7 +3,6 @@ import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import _map from "lodash/map";
 import { List, Avatar, Button } from "antd";
-import PracPopup from '../questionnaries/practice';
 
 const POST_QUERY = gql`
   query CATEGORY_FIND($id: String!) {
@@ -72,22 +71,13 @@ class Categories extends Component {
               />
               {item.content}
               <div style={{ margin: "10px 0 0", textAlign: "right" }}>
-                <Button type="default" style={{ marginLeft: 8 }} onClick={this.togglePopup.bind(this)}>
+                <Button style={{ marginLeft: 8 }} href={`${item.id}/practice`}>
                   Practice
                 </Button>                
-                <Button type="default" style={{ marginLeft: 8 }}>
+                <Button style={{ marginLeft: 8 }} href={item.id + "/practice"}>
                   Take Test
-                </Button>                
+                </Button> 
               </div>
-              {this.state.showPopup ?  
-                <PracPopup  
-                  title={item.title + ' Practice'}
-                  content={item.content}
-                  closePopup={this.togglePopup.bind(this)}
-                  id={item.id}
-                />  
-                : null  
-              }
             </List.Item>
           )}
         />

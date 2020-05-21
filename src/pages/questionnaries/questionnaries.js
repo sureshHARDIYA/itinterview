@@ -63,21 +63,23 @@ class Questionnaries extends Component {
     };
 
     getData() {
-      let quiz = require('./quiz.json');      
+      let quiz = require('./quiz.json');    
       return quiz;
     };
     
     render() {
         const { data } = this.props;
-        const preQuestion = this.getListedData(data.questionnaireFind || {})["questions"];
+        const preQuestion = this.getListedData(data.questionnaireFind || {});
         let Quiz = require('./quiz.json');
-        Quiz.questions = preQuestion;
+        Quiz.questions = preQuestion["questions"];
+        Quiz.id = preQuestion["id"];
         Quiz.numOfQuestions = (Quiz.questions) && Object.keys(Quiz.questions).length;
-        console.log("preQuiz",Quiz, Quiz.numOfQuestions);
+        console.log("preQuiz",Quiz, Quiz.numOfQuestions, Quiz.id);
         return (
             <div className="questionApp">                
                 {this.state.activeView === 'quizOverview' &&
                     <QuizDescription
+                        id={Quiz.id}
                         quiz={Quiz}
                         showQuizQuestion={this.showQuizQuestion.bind(this, 0)}
                         endPopup={this.endPopup.bind(this)}                        
@@ -191,7 +193,7 @@ class QuizDescription extends Component {
                 />
                 <div className="overviewButton">
                   <button onClick={this.props.showQuizQuestion}>Begin</button>
-                  <button onClick={this.props.endPopup}>End</button>
+                  <button href={`${this.props.id}`}>End</button>
                 </div>
             </section>
         );
@@ -282,7 +284,7 @@ class Quizinator extends Component {
                 </div>
                 <div style={{textAlign:"left"}}>
                     {answerDivs}
-                    <Button style={{marginLeft:"10%"}} onClick={this.onNextHandle}>Next</Button>
+                    <Button style={{marginLeft:"10%"}} onClick={this.onNextHandle} className="submitBtn">Next</Button>
                 </div>
             </section>
         );

@@ -54,7 +54,7 @@
     width: 80px;
     height: 35px;
     position: absolute;
-    right: 35px;
+    right: 75px;
     cursor: pointer;
     margin-top: -20px;
     text-align: right;
@@ -175,17 +175,17 @@ label {
     text-align: center;
 }
 
-.questionApp .quizSection .answers button:before {
+.questionApp .quizSection .submitBtn:before {
         content: 'Incorrect!';
         top: 100%;
         background: #e96a6a;
         color: #a33a3a;
         font-weight: 700;
         transform-origin: 0% 0%;
-        transform: rotateX(-90deg);
+        /* transform: rotateX(-90deg); */
     }
 
-    .questionApp .quizSection .answers button:after {
+    .questionApp .quizSection .submitBtn:after {
         content: 'Correct!';
         top: -98%;
         background: #7aca7c;
@@ -194,16 +194,20 @@ label {
         transform: rotateX(90deg);
     }
 
-    .questionApp .quizSection .answers button.correct {
-        background: #aaa;
-        transform-origin: 50% 100%;
-        transform: rotateX(-90deg) translateY(100%);
+    .questionApp .quizSection .submitBtn.correct {
+        background: #7aca7c;
+        color: #358337;
+        border: 0;
+        /* transform-origin: 50% 100%; */
+        /* transform: rotateX(-90deg) translateY(100%); */
     }
 
-    .questionApp .quizSection .answers button.incorrect {
-        background: #aaa;
-        transform-origin: 50% 0%;
-        transform: rotateX(90deg) translateY(-100%);
+    .questionApp .quizSection .submitBtn.incorrect {
+        background: #e96a6a;
+        color: #a33a3a;
+        border: 0;
+        /* transform-origin: 50% 0%; */
+        /* transform: rotateX(90deg) translateY(-100%); */
     }
 
     .questionApp .resultsSection {
