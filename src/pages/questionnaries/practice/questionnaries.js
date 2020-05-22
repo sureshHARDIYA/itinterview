@@ -1,12 +1,11 @@
 import React, { Component } from 'react';
 import './questionnaries.css';
-import { Progress, Checkbox, Radio } from 'antd';
-import Button from '@material-ui/core/Button';
+import { Progress, Checkbox, Radio, Button } from 'antd';
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import _map from "lodash/map";
 import ReactMarkdown from "react-markdown";
-import SubmitAnswer from './submitdial';
+import SubmitResult from './submitresult';
 
 const POST_QUERY = gql`
     query QUESTIONNAIRE_FIND($id: String!) {
@@ -107,7 +106,11 @@ class Questionnaries extends Component {
                     />
                 }
                 {this.state.activeView === 'submitDialog' && 
-                    <SubmitAnswer 
+                    // <SubmitAnswer 
+                    //     submitResults={this.showResults.bind(this)}
+                    //     cancelResults={this.showQuizQuestion.bind(this, this.state.currentQuestionIndex)}
+                    // />
+                    <SubmitResult
                         submitResults={this.showResults.bind(this)}
                         cancelResults={this.showQuizQuestion.bind(this, this.state.currentQuestionIndex)}
                     />
@@ -399,7 +402,7 @@ class Quizinator extends Component {
                     {answerDivs}
                     <div style={{width: "100%",display:"flex"}}>
                         <Button style={{marginLeft:"10%"}} onClick={this.onBackHandle} className="submitBtn">Back</Button>
-                        <Button style={{marginLeft:"59%"}} onClick={this.onNextHandle} className="submitBtn">Next</Button>
+                        <Button style={{marginLeft:"60%"}} onClick={this.onNextHandle} className="submitBtn">Next</Button>
                     </div>
                 </div>
             </section>
