@@ -14,7 +14,9 @@ import { Switch, Route } from "react-router-dom";
 
 import Categories from "./pages/categories/index";
 import CategoriesDetail from "./pages/categories/detail";
-import Practice from "./pages/questionnaries/practice";
+import Practice from "./pages/questionnaries/practice/index";
+import Login from "./pages/register/login";
+import SignUp from "./pages/register/signup";
 
 const { SubMenu } = Menu;
 const { Header, Content, Footer } = Layout;
@@ -46,6 +48,10 @@ class App extends Component {
                 onClick: this.toggle
               }
             )}
+            <div style={{position: "absolute", right: 30, top: 0}}>
+              <Link style={{marginRight: 10}} to={"/sign-in"}>Login</Link>
+              <Link to={"/sign-up"}>Sign up</Link>
+            </div>
           </Header>
           <Content style={{ margin: "0 16px" }}>
             <Breadcrumb style={{ margin: "16px 0" }}>
@@ -72,6 +78,8 @@ class App extends Component {
                   path="/categories/:id/practice"
                   component={Practice}
                 />
+                <Route path="/sign-in" component={Login} />
+                <Route path="/sign-up" component={SignUp} />
               </Switch>
             </div>
           </Content>

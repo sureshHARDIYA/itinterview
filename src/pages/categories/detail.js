@@ -2,7 +2,9 @@ import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import _map from "lodash/map";
-import { List, Avatar, Button } from "antd";
+import { List, Avatar } from "antd";
+import ButtonGroup from '@material-ui/core/ButtonGroup';
+import Button from '@material-ui/core/Button';
 
 const POST_QUERY = gql`
   query CATEGORY_FIND($id: String!) {
@@ -71,12 +73,10 @@ class Categories extends Component {
               />
               {item.content}
               <div style={{ margin: "10px 0 0", textAlign: "right" }}>
-                <Button style={{ marginLeft: 8 }} href={`${item.id}/practice`}>
-                  Practice
-                </Button>                
-                <Button style={{ marginLeft: 8 }} href={item.id + "/practice"}>
-                  Take Test
-                </Button> 
+                <ButtonGroup aria-label="large outlined primary button group">
+                  <Button href={`${item.id}/practice`}>Practice</Button>
+                  <Button href={`${item.id}/practice`}>Take Test</Button>
+                </ButtonGroup>
               </div>
             </List.Item>
           )}
