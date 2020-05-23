@@ -14,6 +14,7 @@ const POST_QUERY = gql`
         id
         name
         description
+        views
       }
       createdAt
       updatedAt
@@ -22,8 +23,7 @@ const POST_QUERY = gql`
 `;
 
 class Categories extends Component {
-
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = { showPopup: false };
   }
@@ -66,13 +66,17 @@ class Categories extends Component {
             <List.Item key={item.id}>
               <List.Item.Meta
                 avatar={<Avatar src={item.avatar} />}
-                title={<a href={item.href}>{item.title}</a>}
+                title={<a href={`${item.href}/practice`}>{item.title}</a>}
                 description={item.description}
               />
               {item.content}
               <div style={{ margin: "10px 0 0", textAlign: "right" }}>
-                <Button size={"default"} href={`${item.id}/practice`}>Practice</Button>
-                <Button size={"default"} href={`${item.id}/practice`}>Take Test</Button>
+                <Button size={"default"} href={`${item.id}/practice`}>
+                  Practice
+                </Button>
+                <Button size={"default"} href={`${item.id}/practice`}>
+                  Take Test
+                </Button>
               </div>
             </List.Item>
           )}

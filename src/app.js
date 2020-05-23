@@ -1,14 +1,5 @@
 import React, { Component } from "react";
-import { Layout, Menu, Breadcrumb } from "antd";
-import {
-  DesktopOutlined,
-  PieChartOutlined,
-  FileOutlined,
-  TeamOutlined,
-  UserOutlined,
-  MenuUnfoldOutlined,
-  MenuFoldOutlined
-} from "@ant-design/icons";
+import { Layout, Breadcrumb } from "antd";
 import { Link } from "react-router-dom";
 import { Switch, Route } from "react-router-dom";
 
@@ -18,7 +9,6 @@ import Practice from "./pages/questionnaries/practice/index";
 import Login from "./pages/register/login";
 import SignUp from "./pages/register/signup";
 
-const { SubMenu } = Menu;
 const { Header, Content, Footer } = Layout;
 
 class App extends Component {
@@ -41,15 +31,10 @@ class App extends Component {
       <Layout style={{ minHeight: "100vh" }}>
         <Layout className="site-layout">
           <Header className="site-layout-background" style={{ padding: 0 }}>
-            {React.createElement(
-              this.state.collapsed ? MenuUnfoldOutlined : MenuFoldOutlined,
-              {
-                className: "trigger",
-                onClick: this.toggle
-              }
-            )}
-            <div style={{position: "absolute", right: 30, top: 0}}>
-              <Link style={{marginRight: 10}} to={"/sign-in"}>Login</Link>
+            <div style={{ position: "absolute", right: 30, top: 0 }}>
+              <Link style={{ marginRight: 10 }} to={"/sign-in"}>
+                Login
+              </Link>
               <Link to={"/sign-up"}>Sign up</Link>
             </div>
           </Header>
