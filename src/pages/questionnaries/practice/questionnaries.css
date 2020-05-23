@@ -3,7 +3,7 @@
     color: #3f3f3f;
     padding: 20px;
     margin: 20px;
-    border-radius: 20px;
+    /* border-radius: 20px; */
     background-color: rgba(0,0,0,0.05);
 }
 
@@ -66,7 +66,7 @@
 }
 
 .questionApp .overviewSection {
-    border: 1px solid rgba(0,0,0,0.1);
+    border: 0.5px solid rgba(0,0,0,0.1);
     border-radius: 10px;
     margin: 20px auto;
     padding: 10px;
@@ -118,7 +118,7 @@
 }
 
 .questionApp .overviewButton {
-    display: flex;
+    text-align: center;
 }
 
 .questionApp .checkbox {    
@@ -130,24 +130,62 @@
 
 .questionApp .checkbox label {
     width: 100%;
+    height: 100%;
     border-radius: 5px;
-    padding: 5px;
+    padding: 2px;
 }
 
 label {
     background: white;
-} 
+    cursor: pointer;    
+}
 
-:checked + label {
-    background: rgba(0,0,0,0.1);
+.ant-radio-group {
+    width: 100%;
 }
 
 .ant-checkbox-wrapper-checked {
     background: rgba(0,0,0,0.1);
+    color: black;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled) {
+    background: rgba(0,0,0,0.1);
+    border: 0px;
+    color: black;
+    box-shadow: 0;
+}
+
+.ant-radio-button-wrapper-checked:not(.ant-radio-button-wrapper-disabled):hover {
+    color: black;
+    box-shadow: 0;
+}
+
+.ant-radio-button-wrapper {
+    padding: 0;
+    border: 0px;
+}
+
+.ant-radio-button-wrapper:hover {
+    color: black;
+}
+
+.ant-radio-button-wrapper:first-child:last-child {
+    border-radius: 5px;
+}
+
+.ant-radio-button-wrapper:first-child {
+    border-left: 0px;
+}
+
+.ant-radio-button-wrapper-checked {
+    background: rgba(0,0,0,0.1);
+    color: black;
 }
 
 .questionApp .checkbox label:hover {
     background: rgba(0,0,0,0.05);
+    color: black;
 }
 
 .questionApp .ant-checkbox {
@@ -161,7 +199,8 @@ label {
     font-family: inherit;
     font-size: inherit;
     color: inherit;
-    background: #ccc;
+    background-color: cornflowerblue;
+    color: white;
     cursor: pointer;
     display: inline-block;
     text-transform: uppercase;
@@ -175,23 +214,9 @@ label {
     text-align: center;
 }
 
-.questionApp .quizSection .submitBtn:before {
-        content: 'Incorrect!';
-        top: 100%;
-        background: #e96a6a;
-        color: #a33a3a;
-        font-weight: 700;
-        transform-origin: 0% 0%;
-        /* transform: rotateX(-90deg); */
-    }
-
-    .questionApp .quizSection .submitBtn:after {
-        content: 'Correct!';
-        top: -98%;
-        background: #7aca7c;
-        color: #358337;
-        transform-origin: 0% 100%;
-        transform: rotateX(90deg);
+.questionApp .quizSection .submitBtn {
+        background-color: cornflowerblue;
+        color: white;
     }
 
     .questionApp .quizSection .submitBtn.correct {
@@ -294,3 +319,28 @@ label {
 .questionApp button:hover {
         box-shadow: inset 0 0 10px;
     }
+
+.hideCheck {
+    display: none;
+}
+
+.showCheck {
+    display: inline-block;
+    width: 20px;
+    margin-left: 10px;
+}
+
+.hideAnswer {
+    display: none;
+}
+
+.showAnswer {
+    display: block;
+    color: darkslategrey;
+    font-style: italic;
+    background: yellow;
+}
+
+.showAnswer p {
+    padding: 5px;
+}

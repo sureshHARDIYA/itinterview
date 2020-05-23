@@ -1,5 +1,5 @@
 import React from 'react';
-import Questionnaries from '../questionnaries/questionnaries';
+import Questionnaries from './questionnaries';
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
 import _map from "lodash/map";
@@ -47,13 +47,12 @@ class Pracpopup extends React.Component {
 
   render() {  
     const { data } = this.props;
-    const preQuestion = this.getListedData(data.questionnaireFind || {});  
-    console.log("data",preQuestion);
+    const preQuestion = this.getListedData(data.questionnaireFind || {}); 
     return (  
       <div>  
-        <div style={{backgroundColor:"rgba(0,0,0,0.05)", margin: 20, borderRadius: 20, padding: 20}}>
-          <h1 style={{textAlign: "center", margin: "0 0 -20px", fontSize: 25 }}>{preQuestion.name}</h1>
-          <h1 style={{textAlign: "left", margin: "20px 20px 0", fontWeight: "unset" }}>{preQuestion.description}</h1>    
+        <div style={{backgroundColor:"cornflowerblue", margin: 20, padding: 20}}>
+          <h1 style={{textAlign: "center", margin: "0 0 -20px", fontSize: 25, color: "white" }}>{preQuestion.name}</h1>
+          <h1 style={{textAlign: "left", margin: "20px 20px 0", fontWeight: "unset", color:"white"}}>{preQuestion.description}</h1>    
         </div>
         <Questionnaries close={this.props.closePopup} id={preQuestion.id} />
       </div>  

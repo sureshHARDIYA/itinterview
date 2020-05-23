@@ -71,12 +71,8 @@ class Categories extends Component {
               />
               {item.content}
               <div style={{ margin: "10px 0 0", textAlign: "right" }}>
-                <Button style={{ marginLeft: 8 }} href={`${item.id}/practice`}>
-                  Practice
-                </Button>                
-                <Button style={{ marginLeft: 8 }} href={item.id + "/practice"}>
-                  Take Test
-                </Button> 
+                <Button size={"default"} href={`${item.id}/practice`}>Practice</Button>
+                <Button size={"default"} href={`${item.id}/practice`}>Take Test</Button>
               </div>
             </List.Item>
           )}
