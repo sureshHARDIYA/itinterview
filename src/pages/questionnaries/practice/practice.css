@@ -253,7 +253,7 @@ label {
     .questionApp .resultsSection .result {
         text-align: left;
         position: relative;
-        margin: 50px 0;
+        margin: 30px 0;
     }
 
     .questionApp  .resultsSection .question {
@@ -266,7 +266,7 @@ label {
     }
 
     .questionApp .resultsSection .result:before {
-        font-size: 2em;
+        font-size: 1.5em;
         position: absolute;
         left: -50px;
     }
@@ -289,7 +289,7 @@ label {
         }
 
         .questionApp .resultsSection .explanation {
-        font-size: 1.1em;
+        font-size: 0.9em;
         margin-bottom: 20px;
     }
 

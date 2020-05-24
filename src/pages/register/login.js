@@ -1,33 +1,89 @@
-import React, { Component } from "react";
+import React from "react";
+import { Form, Input, Button, Checkbox } from 'antd';
+import { UserOutlined, LockOutlined } from '@ant-design/icons';
 
-export default class Login extends Component {
-    render() {
-        return (
-            <form>
-                <h3>Sign In</h3>
-
-                <div className="form-group">
-                    <label>Email address</label>
-                    <input type="email" className="form-control" placeholder="Enter email" />
-                </div>
-
-                <div className="form-group">
-                    <label>Password</label>
-                    <input type="password" className="form-control" placeholder="Enter password" />
-                </div>
-
-                <div className="form-group">
-                    <div className="custom-control custom-checkbox">
-                        <input type="checkbox" className="custom-control-input" id="customCheck1" />
-                        <label className="custom-control-label" htmlFor="customCheck1">Remember me</label>
-                    </div>
-                </div>
-
-                <button type="submit" className="btn btn-primary btn-block">Submit</button>
-                <p className="forgot-password text-right">
-                    Forgot <a href="#">password?</a>
-                </p>
-            </form>
-        );
+const NormalLoginForm = () => {
+  let cntuser=[];
+  
+  const onFinish = values => {
+    let storage = window.localStorage.getItem("users") || '',
+        RegistUsers = (storage.length > 0) ? JSON.parse(storage) : [];
+    let cntusername = values.username, cntpass = values.password;
+    if(RegistUsers.length > 0) {
+        console.log("Registered Users:", RegistUsers);
+    } else {
+        console.log("There is no registeres user.");
+        return;
     }
-}
+    for (let i = 0; i < RegistUsers.length; i++) {
+        if(RegistUsers[i].username === cntusername && RegistUsers[i].password === cntpass) {
+            console.log("Logged in successfully!");
+            cntuser = values;
+            cntuser["id"] = RegistUsers[i].id;
+            window.localStorage.setItem("cntuser",JSON.stringify(cntuser));
+            window.location.href="/";
+            return;
+        } else {
+            continue;
+        }
+    }
+    console.log("Current username or password does not matched with the registered users.");
+  };
+
+  return (
+    <Form
+      name="normal_login"
+      className="login-form"
+      style={{width: "20%", marginLeft: "40%", minWidth: "300px", marginTop: "40px"}}
+      initialValues={{
+        remember: true,
+      }}
+      onFinish={onFinish}
+    >
+      <Form.Item
+        name="username"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Username!',
+          },
+        ]}
+      >
+        <Input prefix={<UserOutlined className="site-form-item-icon" />} placeholder="Username" />
+      </Form.Item>
+      <Form.Item
+        name="password"
+        rules={[
+          {
+            required: true,
+            message: 'Please input your Password!',
+          },
+        ]}
+      >
+        <Input
+          prefix={<LockOutlined className="site-form-item-icon" />}
+          type="password"
+          placeholder="Password"
+        />
+      </Form.Item>
+      <Form.Item>
+        <Form.Item name="remember" valuePropName="true" noStyle>
+          <Checkbox>Remember me</Checkbox>
+        </Form.Item>
+
+        <a className="login-form-forgot" href="" style={{marginRight: 0}}>
+          Forgot password
+        </a>
+      </Form.Item>
+
+      <Form.Item>
+        <Button type="primary" htmlType="submit" className="login-form-button" style={{width: "100%"}}>
+          Log in
+        </Button>
+        Or <a href="/sign-up">register now!</a>
+      </Form.Item>
+    </Form>
+  );
+};
+
+export default NormalLoginForm;

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Modal, Button } from 'antd';
+import { Modal } from 'antd';
 
 class SubmitResult extends Component {
   

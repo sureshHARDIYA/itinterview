@@ -71,7 +71,11 @@ class Categories extends Component {
               />
               {item.content}
               <div style={{ margin: "10px 0 0", textAlign: "right" }}>
-                <Button size={"default"} href={`${item.id}/practice`}>Practice</Button>
+                <Button 
+                  size={"default"} 
+                  href={`${item.id}/practice`} 
+                  onClick={()=>{window.localStorage.setItem("cntURL", window.location.href)}}
+                >Practice</Button>
                 <Button size={"default"} href={`${item.id}/practice`}>Take Test</Button>
               </div>
             </List.Item>
