@@ -1,7 +1,5 @@
 import React, { Component } from "react";
 import gql from "graphql-tag";
-import { render } from "react-dom";
-import { useQuery } from "@apollo/react-hooks";
 import { List, Avatar, Space } from "antd";
 import { MessageOutlined, LikeOutlined, StarOutlined } from "@ant-design/icons";
 import { graphql } from "react-apollo";
@@ -25,6 +23,9 @@ const POST_QUERY = gql`
         id
         name
         description
+        featuredImage {
+          publicUrl
+        }
         updatedAt
         createdAt
       }
@@ -47,7 +48,8 @@ class Categories extends Component {
         href: `/categories/${item.id}`,
         id: item.id,
         content: item.description,
-        title: item.name
+        title: item.name,
+        featuredImage: item.featuredImage[0].publicUrl || item.avatar
       }),
       []
     );
@@ -66,7 +68,7 @@ class Categories extends Component {
             onChange: page => {
               console.log(page);
             },
-            pageSize: 3
+            pageSize: 5
           }}
           dataSource={getListedData}
           renderItem={item => (
@@ -91,7 +93,7 @@ class Categories extends Component {
               ]}
             >
               <List.Item.Meta
-                avatar={<Avatar src={item.avatar} />}
+                avatar={<Avatar src={item.featuredImage} />}
                 title={<a href={item.href}>{item.title}</a>}
                 description={item.description}
               />
