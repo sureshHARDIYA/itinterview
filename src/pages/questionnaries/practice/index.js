@@ -84,6 +84,7 @@ class Questionnaries extends Component {
                             submitAnswer={this.submitAnswer}
                             submitBack={this.submitBack}
                             quiz={Quiz}
+                            cntAnswer={this.state.answers}
                             currentQuestionIndex={this.state.currentQuestionIndex}
                             buttonsDisabled={this.state.buttonsDisabled}
                             transitionDelay={this.state.transitionDelay}
@@ -151,18 +152,22 @@ class Questionnaries extends Component {
     }
 
     submitAnswer(answer, num) {
-        var app = this;        
-        this.setState((prevState) => {
-            return {
-                buttonsDisabled: true,
-                answers: Object.assign({ [this.state.currentQuestionIndex]: answer }, prevState.answers)
-            };
-        });        
-        window.setTimeout(function () {            
-            let nextIndex = app.state.currentQuestionIndex + 1,
-                hasMoreQuestions = (nextIndex < num);
-            (hasMoreQuestions) ? app.showQuizQuestion(nextIndex) : app.showSubDial();            
-        }, this.state.transitionDelay);
+        var app = this;
+        if(this.state.answers[app.state.currentQuestionIndex] && app.state.currentQuestionIndex + 1 < num) {
+            app.showQuizQuestion(app.state.currentQuestionIndex + 1);
+        } else {
+            this.setState((prevState) => {
+                return {
+                    buttonsDisabled: true,
+                    answers: Object.assign({ [this.state.currentQuestionIndex]: answer }, prevState.answers)
+                };
+            });  
+            window.setTimeout(function () {            
+                let nextIndex = app.state.currentQuestionIndex + 1,
+                    hasMoreQuestions = (nextIndex < num);
+                (hasMoreQuestions) ? app.showQuizQuestion(nextIndex) : app.showSubDial();            
+            }, this.state.transitionDelay);
+        }
     };
 
     submitBack() {        
@@ -171,7 +176,7 @@ class Questionnaries extends Component {
             let prevIndex = app.state.currentQuestionIndex - 1,
                 hasPrevStep = (prevIndex > -1);
             (hasPrevStep) ? app.showQuizQuestion(prevIndex) : window.location.href = window.localStorage.getItem('cntURL');
-        }, this.state.transitionDelay);
+        }, 100);
     };
     
     getResults(quiz) {
@@ -188,17 +193,20 @@ class Quizinator extends Component {
         super(props);
         this.state = {
             qsChecked: [],
+            seted: false,
         };
         this.onCheckboxChange = this.onCheckboxChange.bind(this);
         this.onRadioChange = this.onRadioChange.bind(this);
         this.onNextHandle = this.onNextHandle.bind(this);
     }
 
-    onCheckboxChange = (checkedValues) => {        
+    onCheckboxChange = (checkedValues) => {
+        if(this.props.cntAnswer[this.props.currentQuestionIndex] || this.state.seted) {return;}       
         this.setState({
             qsChecked: checkedValues,
         });
-        for (let i = 1; i <= this.props.quiz.questions[this.props.currentQuestionIndex].answers.length; i++) {
+        let rightAnswer=[], answers = this.props.quiz.questions[this.props.currentQuestionIndex].answers;
+        for (let i = 1; i <= answers.length; i++) {
             let id = "check" + i,
                 cntP = document.getElementById(id);
             if (checkedValues.includes(i)) {           
@@ -206,25 +214,45 @@ class Quizinator extends Component {
             } else {
                 cntP.classList.remove("showCheck");
             }
+            if (answers[i-1].score > 0) {
+                rightAnswer.push(i);
+            }
+        }
+        for (let i = 0; i < checkedValues.length; i++) {
+            if(!rightAnswer.includes(checkedValues[i]) || eqSet(checkedValues, rightAnswer)) {
+                document.getElementById("explainAnswer").classList.add("showAnswer");
+                this.setState({
+                    qsChecked: checkedValues,
+                    seted: true,
+                })
+            }
+        }
+        function eqSet(as, bs) {
+            if (as.length !== bs.length) return false;
+            for (let i = 0; i < as.length; i++) {
+                if(!bs.includes(as[i])) return false;
+            } 
+            return true;
         }
     }
 
     onRadioChange = e => {
+        if(this.props.cntAnswer[this.props.currentQuestionIndex] || this.state.seted) {return;}
         this.setState({
             qsChecked: [e.target.value],
+            seted: true,
         });
-        for (let i = 1; i <= this.props.quiz.questions[this.props.currentQuestionIndex].answers.length; i++) {
-            let id = "check" + i,
-                cntP = document.getElementById(id);
-            if (e.target.value == i) {           
-                cntP.classList.add("showCheck");
-            } else {
-                cntP.classList.remove("showCheck");
-            }
-        }
+        document.getElementById("explainAnswer").classList.add("showAnswer");
+        let id = "check" + e.target.value;
+        document.getElementById(id).classList.add("showCheck");
     };
 
-    onNextHandle = (event) => {        
+    onNextHandle = (event) => {
+        if(!this.state.seted && !this.props.cntAnswer[this.props.currentQuestionIndex]) return;
+        if(this.props.cntAnswer[this.props.currentQuestionIndex]) {
+            this.props.submitAnswer(answer, this.props.quiz.numOfQuestions);
+            return;
+        }       
         let isCor = true,
             scroing = this.props.quiz.questions[this.props.currentQuestionIndex].answers;
         if (!this.state.qsChecked.length) isCor = false;
@@ -240,61 +268,24 @@ class Quizinator extends Component {
                 break;
             }
         }
-        let answer = { value: 1, isCorrect: isCor },
+        let answer = { value: 1, isCorrect: isCor, qsChecked: this.state.qsChecked },
             target = event.currentTarget;
-
-        let cntAnswer = document.getElementById("explainAnswer");
-        cntAnswer.classList.add("showAnswer");
-        target.classList.add('clicked', answer.isCorrect ? 'correct' : 'incorrect');
-        setTimeout(() => {           
-
-            this.props.submitAnswer(answer, this.props.quiz.numOfQuestions);            
-
-            window.setTimeout(function () {
-                target.classList.remove('clicked', 'correct', 'incorrect');
-            }, this.props.transitionDelay);
-            
-            setTimeout(() => {
-                this.setState({
-                    qsChecked: [],
-                });
-                cntAnswer.classList.remove("showAnswer");        
-                if(this.props.currentQuestionIndex < this.props.quiz.questions.length - 1) {
-                    for (let i = 1; i <= this.props.quiz.questions[this.props.currentQuestionIndex].answers.length; i++) {
-                        let id = "check" + i,
-                            cntP = document.getElementById(id);
-                        cntP.classList.remove("showCheck");
-                    }
-                }            
-            }, this.props.transitionDelay);
-
-        }, 1);                
-    }
-
-    onBackHandle = (event) => {  
-        let answer = { value: 1, isCorrect: true },
-            target = event.currentTarget;
-
-        this.props.submitBack();
-
-        target.classList.add('clicked', answer.isCorrect ? 'correct' : 'incorrect');
-
-        window.setTimeout(function () {
-            target.classList.remove('clicked', 'correct', 'incorrect');
-        }, this.props.transitionDelay);
         
+        target.classList.add('clicked', answer.isCorrect ? 'correct' : 'incorrect');       
+
         setTimeout(() => {
+            target.classList.remove('clicked', 'correct', 'incorrect');
             this.setState({
                 qsChecked: [],
+                seted: false,
             });
-            if(this.props.currentQuestionIndex > 1) {
-                for (let i = 1; i <= this.props.quiz.questions[this.props.currentQuestionIndex].answers.length; i++) {
-                    let id = "check" + i,
-                        cntP = document.getElementById(id);
-                    cntP.classList.remove("showCheck");
-                }
-            }            
-        }, 500);        
+            this.props.submitAnswer(answer, this.props.quiz.numOfQuestions);
+        }, this.props.transitionDelay);             
+    }
+
+    onBackHandle = () => {
+        this.props.submitBack();        
+        this.setState({ qsChecked: [], });         
     }
 
     render() {
@@ -308,8 +299,9 @@ class Quizinator extends Component {
                                 <Checkbox value={i+1} checked={false}>
                                     {answer.title}
                                     <img 
-                                        id={`check${i+1}`} 
-                                        className="hideCheck" 
+                                        id={`check${i+1}`}
+                                        style={{width: "20px", marginLeft: "10px"}}
+                                        className={(this.props.cntAnswer[this.props.currentQuestionIndex] && this.props.cntAnswer[this.props.currentQuestionIndex].qsChecked.includes(i+1)) ? "showCheck" : "hideCheck"}  
                                         src={answer.score > 0 ? require("../../../img/right.png") : require("../../../img/wrong.png")} 
                                     />
                                 </Checkbox>
@@ -324,8 +316,9 @@ class Quizinator extends Component {
                                 <Radio.Button value={i+1} checked={false}>
                                     {answer.title}
                                     <img 
-                                        id={`check${i+1}`} 
-                                        className="hideCheck" 
+                                        id={`check${i+1}`}
+                                        style={{width: "20px", marginLeft: "10px"}}
+                                        className={(this.props.cntAnswer[this.props.currentQuestionIndex] && this.props.cntAnswer[this.props.currentQuestionIndex].qsChecked.includes(i+1)) ? "showCheck" : "hideCheck"} 
                                         src={answer.score > 0 ? require("../../../img/right.png") : require("../../../img/wrong.png")} 
                                     />
                                 </Radio.Button>
@@ -333,7 +326,6 @@ class Quizinator extends Component {
                         )
                     }
                 </Radio.Group>
-
         
         return (
             <section className={'quizSection' + (this.props.buttonsDisabled ? ' transitionOut' : '')}>
@@ -349,8 +341,17 @@ class Quizinator extends Component {
                 <div className="question">
                     <ReactMarkdown source={question.title} />
                 </div>
-                <div className="hideAnswer" id="explainAnswer">
+                <div 
+                    className={(this.props.cntAnswer[this.props.currentQuestionIndex]) ? "showAnswer" : "hideAnswer"} 
+                    id="explainAnswer"
+                >
                     <p><b>Explanation:</b> {question.explainAnswer}</p>
+                </div>
+                <div 
+                    className={(question.questionType === "MULTIPLE") ? {display: 'flex'} : 'hideCheck'}
+                    style={{fontStyle: "italic", fontSize: '12px', textAlign: 'left', marginBottom: '10px', marginLeft: '60px'}}
+                >
+                    MULTIPLE ANSWER REQUIRED!
                 </div>
                 <div style={{textAlign:"left"}}>
                     {answerDivs}
@@ -365,9 +366,16 @@ class Quizinator extends Component {
 }
 
 class QuizResults extends Component {
+    constructor(props) {
+        super(props);
+        this.HandleGoTo = this.HandleGoTo.bind(this);
+    }
+    HandleGoTo() {
+        console.log("Results");
+        window.location.href = '/sign-in';
+    }
     render() {
         let numCorrect = 0, score = 0, possibleScore = 0;
-
         this.props.results.forEach((answer) => {
             if (!!answer.isCorrect) {
                 numCorrect += 1;
@@ -375,45 +383,23 @@ class QuizResults extends Component {
             }
             possibleScore += ((answer.level || 1) * 10);
         });
-        
-        const results = this.props.results.map((item, i) => {
-            let questionHtml = function () { return { __html: item.title }; };
-            let explanationHtml = function () { return { __html: item.explainAnswer }; };
-            let response =
-                (item.isCorrect === true) ?
-                    <p style={{color:"blue"}}>You correctly answered</p> : <p style={{color:"red"}}>Your answer was wrong</p>;
-
-            return (                 
-                <li className={"result" + (item.isCorrect ? " correct" : " incorrect")} key={i}>
-                    <div className="question" dangerouslySetInnerHTML={questionHtml()} />
-                    <div className="response">
-                        {response}
-                    </div>
-                    <p className="explanation">
-                        <i dangerouslySetInnerHTML={explanationHtml()} />
-                    </p>
-                </li>
-            );
-        });        
-
+        let cntPercent = Math.round(parseInt(numCorrect) / parseInt(this.props.quizNum) * 100);
+        let result = cntPercent > 50 ? "You have passed this practice" : "You did not pass this practice."
         return (
             <section className="resultsSection">
                 <div className="helpImg">
                     <img src={require("../../../img/repeat.png")} onClick={this.props.refresh} />
                 </div>
-                <h2>Results</h2>
+                <h2>{result}</h2>
                 <div className="scoring">
                     You got <em>{numCorrect}</em> correct scoring a total of <b>{score}</b> out of a possible <b>{possibleScore}</b>.
                 </div>
-                <Progress type="circle" percent={Math.round(parseInt(numCorrect) / parseInt(this.props.quizNum) * 100)} />
-                <div>{results}</div>
-                <div style={{ textAlign: "right" }}>
-                    <Button 
-                        size={"default"} 
-                        onClick={()=>{console.log("Results");}}
-                    >
-                        Go to Test
-                    </Button>
+                <Progress type="circle" percent={cntPercent} />
+                <div style={{ textAlign: "left" }}>
+                    <div style={{width: "100%",display:"flex"}}>
+                        <Button style={{marginLeft:"0%"}} onClick={this.props.refresh} className="submitBtn">Try Again</Button>
+                        <Button style={{marginLeft:"70%"}} onClick={this.HandleGoTo} className="submitBtn">Go to Test</Button>
+                    </div>
                 </div>
             </section>
         );
@@ -426,4 +412,4 @@ export default graphql(POST_QUERY, {
           id: match.params.id
         }
     })
-  })(Questionnaries);
+})(Questionnaries);

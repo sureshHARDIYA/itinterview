@@ -325,9 +325,7 @@ label {
 }
 
 .showCheck {
-    display: inline-block;
-    width: 20px;
-    margin-left: 10px;
+    display: inline-block;    
 }
 
 .hideAnswer {
