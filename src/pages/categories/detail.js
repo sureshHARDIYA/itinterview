@@ -74,7 +74,7 @@ class Categories extends Component {
                 <Button size={"default"} href={`${item.id}/practice`}>
                   Practice
                 </Button>
-                <Button size={"default"} href={`${item.id}/practice`}>
+                <Button size={"default"} href={`${item.id}/test`}>
                   Take Test
                 </Button>
               </div>

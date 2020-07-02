@@ -1,8 +1,10 @@
-import React from "react";
-import Questionnaries from "./questionnaries";
+import React, { Component } from "react";
 import gql from "graphql-tag";
 import { graphql } from "react-apollo";
-import _map from "lodash/map";
+import { Card } from "antd";
+
+import Questionnaries from "./questionnaries";
+import { Meta } from "./Meta";
 
 const POST_QUERY = gql`
   query QUESTIONNAIRE_FIND($id: String!) {
@@ -40,7 +42,7 @@ const POST_QUERY = gql`
   }
 `;
 
-class Pracpopup extends React.Component {
+class Pracpopup extends Component {
   getListedData = data => {
     return data;
   };
@@ -50,15 +52,12 @@ class Pracpopup extends React.Component {
     const preQuestion = this.getListedData(data.questionnaireFind || {});
     return (
       <div>
-        <div
-          style={{ backgroundColor: "cornflowerblue", margin: 20, padding: 20 }}
-        >
+        <div style={{ margin: 20, padding: 20 }}>
           <h1
             style={{
               textAlign: "center",
               margin: "0 0 -20px",
-              fontSize: 25,
-              color: "white"
+              fontSize: 25
             }}
           >
             {preQuestion.name}
@@ -67,14 +66,18 @@ class Pracpopup extends React.Component {
             style={{
               textAlign: "left",
               margin: "20px 20px 0",
-              fontWeight: "unset",
-              color: "white"
+              fontWeight: "unset"
             }}
           >
             {preQuestion.description}
           </h1>
         </div>
-        <Questionnaries close={this.props.closePopup} id={preQuestion.id} />
+        <Meta data={this.preQuestion} />
+        <Questionnaries
+          close={this.props.closePopup}
+          id={preQuestion.id}
+          questions={preQuestion.questions}
+        />
       </div>
     );
   }
